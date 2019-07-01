@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Main\CalendarController@calendar');
+
+Route::post('save', 'Main\CalendarController@save');

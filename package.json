@@ -25,6 +25,8 @@
     },
     "dependencies": {
         "moment": "^2.24.0",
+        "vue-cal": "^1.61.0",
+        "vue-event-calendar": "^1.5.2",
         "vuejs-datepicker": "^1.6.2"
     }
 }
