@@ -17,17 +17,28 @@ use Log;
 
 class CalendarController extends Controller
 {
+    /**
+     * Displays main page
+     *
+     * @return view
+     */
     public static function calendar() 
     {
     	return view('main');
     }
 
+    /**
+     * Displays main page
+     *
+     *  @param Request $request
+     *  @return jsonObject $response;
+     */
     public static function save(Request $request)
     {
-    	 // Instatiate global app response helper.
+    	// Instatiate global app response helper.
         $response = new AppResponse();
 
-        // Convert string to array before validating.
+        // Convert string to array before manipulation.
         $params = Functions::toArray($request->input('form'));
 
         $data = [];
@@ -35,36 +46,34 @@ class CalendarController extends Controller
         $data['event_name']     = $params['event'];
         $data['event_start']    = Functions::convertDate($params['startDate']);
         $data['event_end']      = Functions::convertDate($params['endDate']);
-        $data['event_days']     = Functions::toJson($params['checkedDates']);
-        // Way gamit
-        $dayDifference = Functions::dateDiff($data['event_start'], $data['event_end']);
 
-        // Loop here base on days
-        //Event::new($data);
-        $days = $params['checkedDates'];
-
-        foreach($days as $day) {
-          
-        }
-        
-        Log::info(Functions::day($params['startDate']));
-
+        // Get Inteveral day from Start to End day
         $interval = DateInterval::createFromDateString('1 day');
 
-        $period = new DatePeriod(
+        $period = new DatePeriod (
             Functions::toDate($data['event_start']), 
             $interval, 
             Functions::toDate($data['event_end']
         ));
 
-        foreach ($period as $dt) {
-            Log::info("Type of Day");
-            Log::info(Functions::day($dt->format("Y-m-d")));
+        // Get days status flags
+        $days = $params['checkedDates'];
 
+        // Insert data based on the days required
+        foreach ($period as $dt) {
+            foreach ($days as $day) {
+                if ($day == Functions::day($dt->format("Y-m-d"))) {
+                    $data['event_start']    = Functions::convertDate($dt->format("Y-m-d"));
+                    $data['event_end']      = Functions::convertDate($dt->format("Y-m-d"));
+                    $data['event_days']     = Functions::day($dt->format("Y-m-d"));
+
+                    Event::new($data);
+                }
+            }
         }
 
+        // Get Stored data
         $response->data = Event::get();
-        // $response->data = Functions::dateDiff($data['event_start'], $data['event_end']);
 
         return $response->toJson();   	
     }

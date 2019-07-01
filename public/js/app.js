@@ -1765,36 +1765,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {},
   components: {
     'datepicker': vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"],
     'vue-cal': vue_cal__WEBPACK_IMPORTED_MODULE_2___default.a
   },
-  computed: {},
   data: function data() {
     return {
       disabledDates: {
         to: new Date(Date.now())
       },
       calendar: {
-        events: [{
-          start: '2019-07-01',
-          end: '2019-07-01',
-          title: 'Need to go shopping'
-        }, {
-          start: '2018-07-02',
-          end: '2019-07-02',
-          title: 'Golf with John'
-        }, {
-          start: '2018-07-03',
-          end: '2019-07-03',
-          title: 'Dad\'s birthday!'
-        }]
+        events: []
       },
       form: {
         startDate: '',
@@ -62118,10 +62109,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "calendar" }, [
     _c("div", { staticClass: "row" }, [
-      _c("h3", [_vm._v("Calendar Options")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4", staticStyle: { padding: "30px" } }, [
         _c("div", { staticClass: "row" }, [
+          _c("h3", [_vm._v("Calendar Options")]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "from" } }, [_vm._v("Event Name:")]),
             _vm._v(" "),
@@ -62156,7 +62147,8 @@ var render = function() {
               _c("datepicker", {
                 attrs: {
                   disabledDates: _vm.disabledDates,
-                  format: _vm.customFormatter
+                  format: _vm.customFormatter,
+                  "input-class": "form-control"
                 },
                 model: {
                   value: _vm.form.startDate,
@@ -62179,7 +62171,8 @@ var render = function() {
               _c("datepicker", {
                 attrs: {
                   disabledDates: _vm.disabledDates,
-                  format: _vm.customFormatter
+                  format: _vm.customFormatter,
+                  "input-class": "form-control"
                 },
                 model: {
                   value: _vm.form.endDate,
@@ -62534,45 +62527,48 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("span", [_vm._v("Checked names: " + _vm._s(_vm.form.checkedDates))]),
-        _vm._v(
-          "\n            " +
-            _vm._s(_vm.form) +
-            "\n            ====================== "
-        ),
-        _c("br"),
-        _vm._v(
-          "\n            " + _vm._s(_vm.calendar.events) + "\n            "
-        ),
-        _c(
-          "button",
-          {
-            staticClass: "btn",
-            attrs: { type: "button" },
-            on: {
-              click: function($event) {
-                return _vm.save()
-              }
-            }
-          },
-          [_vm._v("Save")]
-        )
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            {
+              staticClass: "pull-right",
+              staticStyle: { "margin-top": "20px" }
+            },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.save()
+                    }
+                  }
+                },
+                [_vm._v("Save")]
+              )
+            ]
+          )
+        ])
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-8 col-md-offset-1" },
-        [
-          _c("vue-cal", {
-            attrs: {
-              time: false,
-              events: _vm.calendar.events,
-              startWeekOnSunday: true
-            }
-          })
-        ],
-        1
-      )
+      _c("div", { staticClass: "col-md-8", staticStyle: { padding: "30px" } }, [
+        _c(
+          "div",
+          { staticClass: "row", staticStyle: { "margin-top": "80px" } },
+          [
+            _c("vue-cal", {
+              attrs: {
+                time: false,
+                events: _vm.calendar.events,
+                startWeekOnSunday: true
+              }
+            })
+          ],
+          1
+        )
+      ])
     ])
   ])
 }
@@ -77184,6 +77180,7 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+Vue.config.productionTip = false;
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

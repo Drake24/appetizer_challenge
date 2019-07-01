@@ -1,9 +1,9 @@
 <template>
     <div class="calendar">
         <div class="row">
-            <h3>Calendar Options</h3>
-            <div class="col-md-3">
+            <div class="col-md-4" style="padding:30px;">
                 <div class="row">
+                    <h3>Calendar Options</h3>
                     <div class="form-group">
                         <label for="from">Event Name:</label>
                         <input class="form-control" v-model="form.event" />
@@ -13,6 +13,7 @@
                         <datepicker
                             :disabledDates="disabledDates" 
                             :format="customFormatter"
+                            :input-class="`form-control`"
                             v-model="form.startDate">
                         </datepicker>
                     </div>
@@ -21,6 +22,7 @@
                         <datepicker
                             :disabledDates="disabledDates" 
                             :format="customFormatter"
+                            :input-class="`form-control`"
                             v-model="form.endDate">
                         </datepicker>
                     </div>
@@ -43,17 +45,20 @@
                         <label class="form-check-label" for="saturday">Sat</label>
                     </div>
                 </div>
-                <span>Checked names: {{ form.checkedDates }}</span>
-                {{ form }}
-                ====================== <br />
-                {{ calendar.events }}
-                <button type="button" class="btn" v-on:click="save()">Save</button>
+                <div class="row">
+                    <div class="pull-right" style="margin-top:20px;">
+                        <button type="button" class="btn btn-default" v-on:click="save()">Save</button>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-8 col-md-offset-1">
-                <vue-cal 
-                    :time="false" 
-                    :events="calendar.events"
-                    :startWeekOnSunday="true"></vue-cal>
+            <div class="col-md-8" style="padding:30px;">
+                <div class="row" style="margin-top:80px;">
+                    <vue-cal 
+                        :time="false" 
+                        :events="calendar.events"
+                        :startWeekOnSunday="true">
+                    </vue-cal>
+                </div>
             </div>
         </div>
     </div>
@@ -67,15 +72,9 @@
     import 'vue-cal/dist/vuecal.css';
 
     export default {
-        mounted() {
-         
-        },
         components: {
             'datepicker' : Datepicker,
             'vue-cal' : VueCal
-        },
-        computed: {
-           
         },
         data () {
             return {
@@ -83,23 +82,7 @@
                     to: new Date(Date.now())
                 },
                 calendar: {
-                    events: [
-                        {
-                          start: '2019-07-01',
-                          end: '2019-07-01',
-                          title: 'Need to go shopping',
-                        },
-                        {
-                          start: '2018-07-02',
-                          end: '2019-07-02',
-                          title: 'Golf with John',
-                        },
-                        {
-                          start: '2018-07-03',
-                          end: '2019-07-03',
-                          title: 'Dad\'s birthday!',
-                        }
-                    ]
+                    events: []
                 },
                 form: {
                     startDate: '',
@@ -114,8 +97,10 @@
               return moment(date).format('YYYY/MM/DD');
             },
             save: function () {
+
                 let vm = this;
-               axios({
+
+                axios({
                     params: {
                         form: this.form
                     },

@@ -8,7 +8,7 @@ use DB;
 
 class Event extends Model
 {
-
+	
     public static function new($event)
     {
     	DB::table('calendar')->insert([

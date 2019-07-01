@@ -27,8 +27,9 @@ class Functions
     }
 
     /**
-     * Converts an array to a Json Object
+     * Converts an array to a Json String
      *
+     * @param  array $array
      * @return jsonObject $self
      */
     public static function toJson($array)
@@ -39,6 +40,7 @@ class Functions
     /**
      * Converts string to date
      *
+     * @param  string $date
      * @return date $self
      */
     public static function convertDate($date)
@@ -49,6 +51,8 @@ class Functions
     /**
      * Converts difference of two dates
      *
+     * @param  string $date
+     * @param  string $date
      * @return int $self
      */
     public static function dateDiff($startDate, $endDate)
@@ -57,20 +61,25 @@ class Functions
         return $dateDiff->format("%R%a");
     }
 
+    /**
+     * Converts string date to date object
+     *
+     * @param  string $date
+     * @return date $self
+     */
     public static function toDate($date)
     {
         return date_create($date);
     }
+
+    /**
+     * Converts date to integer presentation of day
+     *
+     * @param  string $date
+     * @return int $self
+     */
     public static function day($date)
     {
         return $dayofweek = date('w', strtotime($date));
     }
-
-    public static function sortDays($days)
-    {
-        return asort($days);
-    }
-
-   
-
 }
